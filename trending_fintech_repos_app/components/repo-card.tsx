@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import type { Repo } from "@/lib/types";
+import type { Repo } from "@/types/repo";
 
 interface RepoCardProps {
   repo: Repo;
@@ -60,7 +60,7 @@ export function RepoCard({ repo }: RepoCardProps) {
             <Star className="size-3 fill-current" />
             {formatStars(repo.stargazers_count)}
           </Badge>
-          {repo.language && repo.language !== "Unknown" && (
+          {repo.language && (
             <Badge
               variant="outline"
               className="font-normal border-[#e5e5e5] text-muted-foreground"

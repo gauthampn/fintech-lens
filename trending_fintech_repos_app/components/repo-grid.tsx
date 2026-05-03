@@ -5,7 +5,8 @@ import { RepoCard } from "@/components/repo-card";
 import { Filters } from "@/components/filters";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState, useMemo } from "react";
-import type { Repo, RelevanceFilter, SortBy } from "@/lib/types";
+import type { Repo } from "@/types/repo";
+import type { RelevanceFilter, SortBy } from "@/lib/types";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
