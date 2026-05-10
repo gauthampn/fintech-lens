@@ -1,6 +1,7 @@
 "use client";
 
-import { ExternalLink, Star, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { ExternalLink, Star, Sparkles, Loader2 } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -32,6 +33,12 @@ function isActive(pushedAt: string): boolean {
 
 export function RepoCard({ repo }: RepoCardProps) {
   const active = isActive(repo.pushed_at);
+  const [analyzing, setAnalyzing] = useState(false);
+
+  function handleAnalyze() {
+    setAnalyzing(true);
+    setTimeout(() => setAnalyzing(false), 2000);
+  }
 
   return (
     <Card className="flex flex-col border-[#e5e5e5] py-4 shadow-none hover:border-[#d4d4d4] transition-colors">
@@ -125,12 +132,22 @@ export function RepoCard({ repo }: RepoCardProps) {
         <Button
           variant="outline"
           size="sm"
-          disabled
-          className="w-full border-[#e5e5e5] text-muted-foreground"
+          disabled={analyzing}
+          onClick={handleAnalyze}
+          className="w-full border-[#e5e5e5] text-muted-foreground hover:border-gray-400 transition-colors"
         >
-          <Sparkles className="size-3.5" />
-          Analyze with AI
-          <span className="text-xs opacity-60 ml-1">(Sprint 2)</span>
+          {analyzing ? (
+            <>
+              <Loader2 className="size-3.5 animate-spin" />
+              Analyzing...
+            </>
+          ) : (
+            <>
+              <Sparkles className="size-3.5" />
+              Analyze with AI
+              <span className="text-xs opacity-60 ml-1">(Sprint 2)</span>
+            </>
+          )}
         </Button>
       </CardFooter>
     </Card>
