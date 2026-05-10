@@ -60,7 +60,12 @@ export async function fetchRepos(): Promise<Repo[]> {
     new Map(allRepos.map((r) => [r.id, r])).values()
   );
 
-  return unique.map((r) => ({
+  const asciiOnly = (str: string) => /^[\x00-\x7F]*$/.test(str);
+  const filtered = unique.filter(
+    (r) => r.description !== null && r.description !== "" && asciiOnly(r.description)
+  );
+
+  return filtered.map((r) => ({
     id: r.id,
     name: r.name,
     full_name: r.full_name,
